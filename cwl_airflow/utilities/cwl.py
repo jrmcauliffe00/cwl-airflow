@@ -620,7 +620,8 @@ def execute_workflow_step(
     )
 
     default_cwl_args = get_default_cwl_args(cwl_args)
-
+    print("default_cwl_args", default_cwl_args)
+    '''
     default_cwl_args.update({                          # add execution specific parameters
         "tmp_outdir_prefix": step_cache_folder + "/",
         "tmpdir_prefix": step_cache_folder + "/",
@@ -629,11 +630,11 @@ def execute_workflow_step(
         "basedir": os.getcwd(),                        # job should already have abs path for inputs, so this is useless
         "outdir": step_outputs_folder
     })
-    
+    '''
     workflow_step_path = os.path.join(
         step_tmp_folder, task_id + "_step_workflow.cwl"
     )
-
+    print("workflow_step_path", workflow_step_path)
     fast_cwl_step_load(                                # will save new worlflow to "workflow_step_path"
         workflow=workflow,
         target_id=task_id,
@@ -658,6 +659,7 @@ def execute_workflow_step(
             RuntimeContext(default_cwl_args)
         )
         sys.stderr = _stderr
+        print("_stderr, sys.stderr, RuntimeContext(default_cwl_args)", _stderr, sys.stderr, RuntimeContext(default_cwl_args))
 
         if step_status != "success":
             raise ValueError("Failed to run workflow step")
