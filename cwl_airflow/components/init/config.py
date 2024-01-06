@@ -28,11 +28,11 @@ def run_init_config(args):
 
     create_airflow_config(args)          # will create default airflow.cfg if it wasn't present
     patch_airflow_config(args)
-    init_airflow_db(args)
+    # init_airflow_db(args)
 
-    if args.upgrade:
-        upgrade_dags(args)
-    copy_dags(args)
+    # if args.upgrade:
+      #  upgrade_dags(args)
+    # copy_dags(args)
 
 
 def create_airflow_config(args):
