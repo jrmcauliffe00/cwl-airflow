@@ -172,14 +172,16 @@ def patch_airflow_config(args):
 
 
     except (CalledProcessError, FileNotFoundError) as err:
-        logging.error(f"""Failed to patch Airflow configuration file. Restoring from the backup and exiting.\n{err}""")
+        logging.error(f"""Failed to patch Airflow configuration file. \n{err}""") 
+    '''
+                      Restoring from the backup and exiting.\n{err}""")
         if os.path.isfile(airflow_config_backup):
             shutil.copyfile(airflow_config_backup, args.config)
         sys.exit(1)
     finally:
         if os.path.isfile(airflow_config_backup) and not airflow_version_update:
             os.remove(airflow_config_backup)
-
+    '''
 
 def upgrade_dags(args):
     """
