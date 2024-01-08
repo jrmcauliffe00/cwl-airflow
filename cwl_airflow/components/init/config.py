@@ -125,6 +125,7 @@ def patch_airflow_config(args):
     # create a temporary backup of airflow.cfg to restore from if we failed to apply patches
     # this backup will be deleted after all patches applied if it wasn't created right before
     # Airflow version update to 2.0.0
+    '''
     airflow_config_backup = args.config + "_backup_" + str(uuid.uuid4())
     try:
         # reading aiflow.cfg before applying any patches and creating backup
@@ -156,6 +157,20 @@ def patch_airflow_config(args):
                 stdout=DEVNULL,
                 stderr=DEVNULL
             )
+    '''
+### CHANGE ###
+    try:
+        for patch in patches:
+            logging.debug(f"Applying patch {patch}")
+            run(
+                    patch,
+                    shell=False,  # for proper handling of filenames with spaces
+                    check=True,
+                    stdout=DEVNULL,
+                    stderr=DEVNULL
+            )
+
+
     except (CalledProcessError, FileNotFoundError) as err:
         logging.error(f"""Failed to patch Airflow configuration file. Restoring from the backup and exiting.\n{err}""")
         if os.path.isfile(airflow_config_backup):
