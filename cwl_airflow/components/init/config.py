@@ -26,7 +26,7 @@ def run_init_config(args):
     config to correspond to Airflow 2.0.0
     """
 
-    # create_airflow_config(args)          # will create default airflow.cfg if it wasn't present
+    create_airflow_config(args)          # will create default airflow.cfg if it wasn't present
     patch_airflow_config(args)
     # init_airflow_db(args)
 
