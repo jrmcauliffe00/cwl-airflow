@@ -611,9 +611,13 @@ def execute_workflow_step(
     data in both success and failure scenarios.
     """
 
-    cwl_args = {} if cwl_args is None else cwl_args
-    executor = SingleJobExecutor() if executor is None else executor
+    ### ADDITIONS ###
+    logging.basicConfig(level=logging.DEBUG)  
+    logger = logging.getLogger('cwltool.executors.singlejobexecutor')
 
+    cwl_args = {} if cwl_args is None else cwl_args
+    executor = SingleJobExecutor(logger=logger) if executor is None else executor # add logger=logger
+    ### END CHANGES ###
     step_tmp_folder, step_cache_folder, step_outputs_folder, step_report = get_temp_folders(
         task_id=task_id,
         job_data=job_data
