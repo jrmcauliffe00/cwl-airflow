@@ -616,7 +616,7 @@ def execute_workflow_step(
     logger = logging.getLogger('cwltool.executors.singlejobexecutor')
 
     cwl_args = {} if cwl_args is None else cwl_args
-    executor = SingleJobExecutor(logger=logger) if executor is None else executor # add logger=logger
+    executor = SingleJobExecutor() if executor is None else executor # add logger=logger
     ### END CHANGES ###
     step_tmp_folder, step_cache_folder, step_outputs_folder, step_report = get_temp_folders(
         task_id=task_id,
@@ -659,7 +659,8 @@ def execute_workflow_step(
         step_outputs, step_status = executor(
             workflow_data,
             job_data,
-            RuntimeContext(default_cwl_args)
+            RuntimeContext(default_cwl_args),
+            logger #addition
         )
         sys.stderr = _stderr
 
